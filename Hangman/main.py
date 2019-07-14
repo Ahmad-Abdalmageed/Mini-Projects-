@@ -94,7 +94,6 @@ def find(word, character):
     return occurrences
 
 
-# Add A function to replace the guess with an '_'
 def game_processes(word, size):
     """
     The main game function which takes guesses and count the user
@@ -103,34 +102,51 @@ def game_processes(word, size):
     """
     # Hide the chosen word then print it
     hidden_word = [' _ ' for item in range(size)]
-
     print(''.join(hidden_word))
-    hang = 1
+    hang = 0
 
-    while hang != 6:
-        guess = input("Enter a guess :")
+    # while hang != 6:
+    #     guess = input("Enter a guess :")
+    #
+    #     # Winning situation
+    #     if guess in word:
+    #         positions = find(word, guess)
+    #         for position in positions:
+    #             hidden_word[position] = guess
+    #
+    #         print('\n' + hangmanPics[hang-1])
+    #         print(''.join(hidden_word))
+    #
+    #     # Losing situation
+    #     elif guess not in word:
+    #         print(hangmanPics[hang])
+    #         print(''.join(hidden_word))
+    #         hang += 1
+    # else:
+    #     if ''.join(hidden_word) == word:
+    #         print("YOU WON")
+    #
+    #     else:
+    #         print(hangmanPics[6] + '\n')
+    #         print("GAME OVER")
 
-        # Winning situation
+    while hang < 5:
+        guess = input("Take a guess :")
+        goal = ''.join(hidden_word)
         if guess in word:
             positions = find(word, guess)
             for position in positions:
                 hidden_word[position] = guess
-                    
-            print('\n' + hangmanPics[hang-1])
-            print(''.join(hidden_word))
-
-        # Losing situation
+            print(''.join(hidden_word), hangmanPics[hang], sep='\n')
         elif guess not in word:
-            print(hangmanPics[hang])
-            print(''.join(hidden_word))
             hang += 1
+            print(hangmanPics[hang], ''.join(hidden_word), sep='\n')
+        elif goal == str(word):
+            print("WOW, YOU WON !!!")
+            break
     else:
-        if ''.join(hidden_word) == word:
-            print("YOU WON")
-
-        else:
-            print(hangmanPics[6] + '\n')
-            print("GAME OVER")
+        print(hangmanPics[6] + '\n')
+        print("GAME OVER")
 
 
 if __name__ == '__main__':
