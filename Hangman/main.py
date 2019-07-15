@@ -94,7 +94,6 @@ def find(word, character):
     return occurrences
 
 
-# Add A function to replace the guess with an '_'
 def game_processes(word, size):
     """
     The main game function which takes guesses and count the user
@@ -103,31 +102,24 @@ def game_processes(word, size):
     """
     # Hide the chosen word then print it
     hidden_word = [' _ ' for item in range(size)]
+    attempts = 0
+    goal = ''.join(hidden_word)
+    print(goal)
 
-    print(''.join(hidden_word))
-    hang = 1
-
-    while hang != 6:
-        guess = input("Enter a guess :")
-
-        # Winning situation
+    while goal != word and attempts <= 5:
+        guess = input("Take a guess :")
         if guess in word:
             positions = find(word, guess)
             for position in positions:
                 hidden_word[position] = guess
-                    
-            print('\n' + hangmanPics[hang-1])
-            print(''.join(hidden_word))
-
-        # Losing situation
+            goal = ''.join(hidden_word)
+            print(goal, hangmanPics[attempts], sep='\n')
         elif guess not in word:
-            print(hangmanPics[hang])
-            print(''.join(hidden_word))
-            hang += 1
+            attempts += 1
+            print(hangmanPics[attempts], ''.join(hidden_word), sep='\n')
     else:
-        if ''.join(hidden_word) == word:
-            print("YOU WON")
-
+        if goal == word:
+            print("WOW, You Won !!!")
         else:
             print(hangmanPics[6] + '\n')
             print("GAME OVER")
