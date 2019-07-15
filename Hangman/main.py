@@ -102,51 +102,27 @@ def game_processes(word, size):
     """
     # Hide the chosen word then print it
     hidden_word = [' _ ' for item in range(size)]
-    print(''.join(hidden_word))
-    hang = 0
+    attempts = 0
+    goal = ''.join(hidden_word)
+    print(goal)
 
-    # while hang != 6:
-    #     guess = input("Enter a guess :")
-    #
-    #     # Winning situation
-    #     if guess in word:
-    #         positions = find(word, guess)
-    #         for position in positions:
-    #             hidden_word[position] = guess
-    #
-    #         print('\n' + hangmanPics[hang-1])
-    #         print(''.join(hidden_word))
-    #
-    #     # Losing situation
-    #     elif guess not in word:
-    #         print(hangmanPics[hang])
-    #         print(''.join(hidden_word))
-    #         hang += 1
-    # else:
-    #     if ''.join(hidden_word) == word:
-    #         print("YOU WON")
-    #
-    #     else:
-    #         print(hangmanPics[6] + '\n')
-    #         print("GAME OVER")
-
-    while hang < 5:
+    while goal != word and attempts <= 5:
         guess = input("Take a guess :")
-        goal = ''.join(hidden_word)
         if guess in word:
             positions = find(word, guess)
             for position in positions:
                 hidden_word[position] = guess
-            print(''.join(hidden_word), hangmanPics[hang], sep='\n')
+            goal = ''.join(hidden_word)
+            print(goal, hangmanPics[attempts], sep='\n')
         elif guess not in word:
-            hang += 1
-            print(hangmanPics[hang], ''.join(hidden_word), sep='\n')
-        elif goal == str(word):
-            print("WOW, YOU WON !!!")
-            break
+            attempts += 1
+            print(hangmanPics[attempts], ''.join(hidden_word), sep='\n')
     else:
-        print(hangmanPics[6] + '\n')
-        print("GAME OVER")
+        if goal == word:
+            print("WOW, You Won !!!")
+        else:
+            print(hangmanPics[6] + '\n')
+            print("GAME OVER")
 
 
 if __name__ == '__main__':
