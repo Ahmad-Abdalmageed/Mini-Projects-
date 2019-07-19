@@ -108,12 +108,15 @@ def game_processes(word, size):
 
     while goal != word and attempts <= 5:
         guess = input("Take a guess :")
+        # Winning Situation
         if guess in word:
             positions = find(word, guess)
+            # converts every blank in the position of the guess to the right character
             for position in positions:
                 hidden_word[position] = guess
             goal = ''.join(hidden_word)
             print(goal, hangmanPics[attempts], sep='\n')
+        # Losing Situation
         elif guess not in word:
             attempts += 1
             print(hangmanPics[attempts], ''.join(hidden_word), sep='\n')
